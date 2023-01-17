@@ -33,13 +33,14 @@
 # SOFTWARE.
 # ##################################################
 
-IPSET_BIN=""                # Path to ipset binary. Populated by detect_ipset()
+IPSET_BIN=""                # Path to ipset binary. Populated by detect_ipset().
 IPSET_DIR="/var/lib/ipset"  # Folder to write ipset save files to
 IPSET_PREFIX="blocklist"    # Prefix for ipset names
 IPSET_TYPE="hash:net"       # Type of created ipsets
+QUIET=0                     # Default quiet mode setting
 VERBOSE=0                   # Default verbosity level
+declare -A BLOCKLISTS       # Array for blocklists to use. Populated by CLI args,
 IPV4_REGEX="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(/[1-3]?[0-9])?" # Regex for a valid IPv4 address with optional subnet part
-BLOCKLISTS=("blocklist https://lists.blocklist.de/lists/all.txt" "spamhaus https://www.spamhaus.org/drop/drop.txt") # Array of all blocklists in the format "$name $url". Arguments are separated by spaces.
 
 ##
 # Prints the help/usage message
@@ -47,12 +48,18 @@ BLOCKLISTS=("blocklist https://lists.blocklist.de/lists/all.txt" "spamhaus https
 function print_usage() {
     cat << EOF
 Usage: $0 [-h]
-TODO TODO TODO TODO TODO
+Blocking lists of IPs from public blocklists / blacklists (e.g. blocklist.de, spamhaus.org)
+
 Options:
+  -l     : Blocklist to use. Can be specified multiple times.
+           Format: "$name $url" (space-separated). See examples below.
+  -q     : Quiet mode. Outputs are suppressed if flag is present.
   -v     : Verbose mode. Prints additional information during execution.
   -h     : Print this help message.
+
 Example usage:
-$0
+$0 -l "spamhaus https://www.spamhaus.org/drop/drop.txt"
+$0 -l "blocklist https://lists.blocklist.de/lists/all.txt" -l "spamhaus https://www.spamhaus.org/drop/drop.txt"
 EOF
 }
 
@@ -202,8 +209,12 @@ function main() {
 }
 
 # Parse arguments
-while getopts ":hv" opt; do
+while getopts ":hvl:" opt; do
   case ${opt} in
+    l ) BLOCKLISTS[${#BLOCKLISTS[@]}]=${OPTARG}
+      ;;
+    q ) QUIET=1
+      ;;
     v ) VERBOSE=1
       ;;
     h ) print_usage; exit
