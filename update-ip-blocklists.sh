@@ -216,19 +216,19 @@ function main() {
 
 # Parse arguments
 while getopts ":hvl:" opt; do
-  case ${opt} in
-    l ) BLOCKLISTS[${#BLOCKLISTS[@]}]=${OPTARG}
-      ;;
-    q ) QUIET=1
-      ;;
-    v ) VERBOSE=1
-      ;;
-    h ) print_usage; exit
-      ;;
-    : ) print_usage; exit
-      ;;
-    \? ) print_usage; exit
-      ;;
+    case ${opt} in
+        l) BLOCKLISTS[${#BLOCKLISTS[@]}]=${OPTARG}
+            ;;
+        q) QUIET=1
+            ;;
+        v) VERBOSE=1
+            ;;
+        h) print_usage; exit
+            ;;
+        :) print_usage; exit
+            ;;
+        \? ) print_usage; exit
+            ;;
   esac
 done
 
