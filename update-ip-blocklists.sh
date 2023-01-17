@@ -33,7 +33,7 @@
 # SOFTWARE.
 # ##################################################
 
-IPSET_BIN=""                # Path to ipset binary. Populated by detect_ipset().
+IPSET_BIN="/usr/bin/ipset"  # Path to ipset binary. Updated by detect_ipset().
 IPSET_DIR="/var/lib/ipset"  # Folder to write ipset save files to
 IPSET_PREFIX="blocklist"    # Prefix for ipset names
 IPSET_TYPE="hash:net"       # Type of created ipsets
@@ -173,6 +173,7 @@ function update_blocklist() {
 
     $IPSET_BIN create -q "$livelist" "$IPSET_TYPE"
     $IPSET_BIN create -q "$templist" "$IPSET_TYPE"
+    log_verbose "Prepared ipset lists: livelist='$livelist', templist='$templist'"
 
     while read -r ip; do
         $IPSET_BIN add "$templist" "$ip" || exit
@@ -180,8 +181,9 @@ function update_blocklist() {
     done < "$tempfile.filtered"
 
     $IPSET_BIN swap "$templist" "$livelist"
+    log_verbose "Swapped ipset: $livelist"
     $IPSET_BIN destroy "$templist"
-    log_verbose "Updated ipset: $livelist"
+    log_verbose "Destroyed ipset: $templist"
 
     # Write ipset savefile
     $IPSET_BIN save "$livelist" > "$IPSET_DIR/$livelist.save"
