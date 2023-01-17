@@ -120,6 +120,7 @@ function detect_ipset() {
 function validate_blocklists() {
     if [ ${#BLOCKLISTS[@]} -eq 0 ]; then
         log_error "No blocklists given. Exiting..."
+        print_usage
         exit 1
     fi
 
@@ -150,6 +151,7 @@ function validate_blocklists() {
 #
 function update_blocklist() {
     # Download blocklist
+    log "Updating blacklist '$1' ..."
     log_verbose "Downloading blocklist '$1' from: $2 ..."
     local tempfile=$(mktemp "/tmp/blocklist.$1.XXXXXXXX")
     wget -q -O "$tempfile" "$2"
@@ -174,6 +176,7 @@ function update_blocklist() {
 
     while read -r ip; do
         $IPSET_BIN add "$templist" "$ip" || exit
+        log_verbose "Added '$ip' to '$templist'"
     done < "$tempfile.filtered"
 
     $IPSET_BIN swap "$templist" "$livelist"
@@ -183,6 +186,7 @@ function update_blocklist() {
     # Write ipset savefile
     $IPSET_BIN save "$livelist" > "$IPSET_DIR/$livelist.save"
     log_verbose "Wrote savefile for '$livelist' to: $IPSET_DIR/$livelist.save"
+    log "Added $(cat "$tempfile.filtered" | wc -l) from blocklist '$1' to ipset '$livelist'"
 
     # Cleanup
     rm "$tempfile"*
