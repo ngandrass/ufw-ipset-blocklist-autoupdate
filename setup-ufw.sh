@@ -34,7 +34,7 @@
 # ##################################################
 
 UFW_CONF_DIR=/etc/ufw
-UFW_AFTER_INIT_FILE=dist/ufw/after.init
+UFW_AFTER_INIT_FILE=$UFW_CONF_DIR/after.init
 IPSET_DIR="/var/lib/ipset"  # Folder to write ipset save files to
 
 # Let user abort
@@ -51,7 +51,7 @@ mkdir -p "$IPSET_DIR" || exit
 
 # Check if file already exists.
 if [ -f "$UFW_AFTER_INIT_FILE" ]; then
-    read -r -p "The file $UFW_AFTER_INIT_FILE already exists. Are you sure that you want to overwrite it? [y/N] " ret
+    read -r -p "The file $UFW_UFW_AFTER_INIT_FILE already exists. Are you sure that you want to overwrite it? [y/N] " ret
     case "$ret" in
         [yY][eE][sS]|[yY])
             # continue
@@ -63,9 +63,9 @@ if [ -f "$UFW_AFTER_INIT_FILE" ]; then
 fi
 
 # Deploy after.init
-cp "$UFW_AFTER_INIT_FILE" "$UFW_CONF_DIR/after.init" || exit
-chmod 755 "$UFW_CONF_DIR/after.init"
-echo "Deployed $UFW_CONF_DIR/after.init"
+cp "dist/ufw/after.init" "$UFW_AFTER_INIT_FILE" || exit
+chmod 755 "$UFW_AFTER_INIT_FILE"
+echo "Deployed $UFW_UFW_AFTER_INIT_FILE"
 
 # Restart ufw
 read -r -p "Reload ufw to apply changes? [Y/n] " ret
