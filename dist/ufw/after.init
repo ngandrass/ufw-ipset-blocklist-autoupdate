@@ -31,7 +31,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 # ##################################################
-set -e
 
 IPSET_BIN="$(which ipset)"
 IPSET_DIR="/var/lib/ipset"
@@ -64,7 +63,7 @@ stop)
 
         iptables -D INPUT -m set --match-set "$listname" src -j DROP || true
         iptables -D INPUT -m set --match-set "$listname" src -j LOG --log-prefix "[UFW BLOCK $listname] " || true
-        $IPSET_BIN destroy -q "$listname"
+        $IPSET_BIN destroy -q "$listname" || true
     done
     ;;
 status)
