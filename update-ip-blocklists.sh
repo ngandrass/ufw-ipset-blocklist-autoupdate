@@ -52,7 +52,7 @@ Blocking lists of IPs from public blocklists / blacklists (e.g. blocklist.de, sp
 
 Options:
   -l     : Blocklist to use. Can be specified multiple times.
-           Format: "$name $url" (space-separated). See examples below.
+           Format: "\$name \$url" (space-separated). See examples below.
   -q     : Quiet mode. Outputs are suppressed if flag is present.
   -v     : Verbose mode. Prints additional information during execution.
   -h     : Print this help message.

@@ -23,7 +23,7 @@ Blocking lists of IPs from public blocklists / blacklists (e.g. blocklist.de, sp
 
 Options:
   -l     : Blocklist to use. Can be specified multiple times.
-           Format: " " (space-separated). See examples below.
+           Format: "$name $url" (space-separated). See examples below.
   -q     : Quiet mode. Outputs are suppressed if flag is present.
   -v     : Verbose mode. Prints additional information during execution.
   -h     : Print this help message.
@@ -31,6 +31,7 @@ Options:
 Example usage:
 ./update-ip-blocklists.sh -l "spamhaus https://www.spamhaus.org/drop/drop.txt"
 ./update-ip-blocklists.sh -l "blocklist https://lists.blocklist.de/lists/all.txt" -l "spamhaus https://www.spamhaus.org/drop/drop.txt"
+
 ```
 
 ### Supplying blocklist sources
