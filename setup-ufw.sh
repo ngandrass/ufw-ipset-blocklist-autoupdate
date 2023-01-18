@@ -63,7 +63,7 @@ if [ -f "$UFW_AFTER_INIT_FILE" ]; then
 fi
 
 # Deploy after.init
-cp "dist/ufw/after.init" "$UFW_AFTER_INIT_FILE" || exit
+cp "ufw/after.init" "$UFW_AFTER_INIT_FILE" || exit
 chmod 755 "$UFW_AFTER_INIT_FILE"
 echo "Deployed $UFW_UFW_AFTER_INIT_FILE"
 
