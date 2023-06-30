@@ -1,5 +1,14 @@
 # ufw-ipset-blocklist-autoupdate
 
+[![Latest Version](https://img.shields.io/github/v/release/ngandrass/ufw-ipset-blocklist-autoupdate)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/releases)
+[![Maintenance Status](https://img.shields.io/maintenance/yes/9999)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/)
+[![License](https://img.shields.io/github/license/ngandrass/ufw-ipset-blocklist-autoupdate)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/blob/master/LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/ngandrass/ufw-ipset-blocklist-autoupdate)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/ngandrass/ufw-ipset-blocklist-autoupdate)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/pulls)
+[![GitHub Stars](https://img.shields.io/github/stars/ngandrass/ufw-ipset-blocklist-autoupdate?style=social)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/ngandrass/ufw-ipset-blocklist-autoupdate?style=social)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/network/members)
+[![GitHub Contributors](https://img.shields.io/github/contributors/ngandrass/ufw-ipset-blocklist-autoupdate?style=social)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/graphs/contributors)
+
 This collection of scripts automatically pulls IP blocklists (e.g. Spamhaus, Blocklist, ...) and drops packages from
 listed IP addresses. It integrates with the uncomplicated firewall (`ufw`) and makes use of `ipset` for storing IP
 addresses and network ranges. Both IPv4 and IPv6 blocklists are supported.
