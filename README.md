@@ -2,7 +2,7 @@
 
 This collection of scripts automatically pulls IP blocklists (e.g. Spamhaus, Blocklist, ...) and drops packages from
 listed IP addresses. It integrates with the uncomplicated firewall (`ufw`) and makes use of `ipset` for storing IP
-addresses and network ranges.
+addresses and network ranges. Both IPv4 and IPv6 blocklists are supported.
 
 
 ## Installation
@@ -24,6 +24,8 @@ Blocking lists of IPs from public blocklists / blacklists (e.g. blocklist.de, sp
 Options:
   -l     : Blocklist to use. Can be specified multiple times.
            Format: "$name $url" (space-separated). See examples below.
+  -4     : Run in IPv4 only mode. Ignore IPv6 addresses.
+  -6     : Run in IPv6 only mode. Ignore IPv4 addresses.
   -q     : Quiet mode. Outputs are suppressed if flag is present.
   -v     : Verbose mode. Prints additional information during execution.
   -h     : Print this help message.
@@ -31,7 +33,7 @@ Options:
 Example usage:
 ./update-ip-blocklists.sh -l "spamhaus https://www.spamhaus.org/drop/drop.txt"
 ./update-ip-blocklists.sh -l "blocklist https://lists.blocklist.de/lists/all.txt" -l "spamhaus https://www.spamhaus.org/drop/drop.txt"
-
+./update-ip-blocklists.sh -l "spamhaus https://www.spamhaus.org/drop/drop.txt" -l "spamhaus6 https://www.spamhaus.org/drop/dropv6.txt"
 ```
 
 ### Supplying blocklist sources
@@ -40,10 +42,14 @@ Blocklists can be passed to the script using the `-l` CLI argument. Each entry c
 separated by a space. Examples:
 
 - `-l "spamhaus https://www.spamhaus.org/drop/drop.txt"`
-- `-l "mylist http://mylist.local/list.txt`
+- `-l "mylist http://mylist.local/list.txt"`
+- `-l "spamhaus6 https://www.spamhaus.org/drop/dropv6.txt"`
 
 Lists are stripped of comments. This means all text after one of the following characters is removed before
-parsing: `;`, `#`. Valid IPv4 addresses with an optional CIDR are loaded into the ipset to block.
+parsing: `;`, `#`. Valid IPv4/IPv6 addresses with an optional CIDR are loaded into the ipset to block.
+
+Processing of either IPv6 or IPv4 addresses can be disabled by supplying the `-4` (IPv4 only) or `-6` (IPv6 only)
+flags respectively.
 
 
 ### Listing blocked IPs
@@ -64,3 +70,4 @@ by `ipset list`.
 ## Acknowledgments
 
 This project is inspired by [this post on Xela's Linux Blog](https://spielwiese.la-evento.com/xelasblog/archives/74-Ipset-aus-der-Spamhaus-DROP-gemeinsam-mit-ufw-nutzen.html).
+
