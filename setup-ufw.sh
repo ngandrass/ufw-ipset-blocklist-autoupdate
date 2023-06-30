@@ -36,6 +36,7 @@
 UFW_CONF_DIR=/etc/ufw
 UFW_AFTER_INIT_FILE=$UFW_CONF_DIR/after.init
 IPSET_DIR="/var/lib/ipset"  # Folder to write ipset save files to
+CONFIGURE_IPV6=0
 
 # Let user abort
 read -r -p "Configure UFW to block IPs listed in blocklist ipsets? [Y/n] " ret
@@ -46,8 +47,25 @@ case "$ret" in
         ;;
 esac
 
+read -r -p "Would you like to enable IPv6 support? [Y/n] " ret
+case "$ret" in
+    [nN][oO]|[nN]) CONFIGURE_IPV6=0
+        ;;
+    *)
+        CONFIGURE_IPV6=1
+        ;;
+esac
+
 # Ensure that IPSET_DIR exists
 mkdir -p "$IPSET_DIR" || exit
+
+# Check that ufw has IPv6 enabled
+if [[ "$CONFIGURE_IPV6" == 1 ]]; then
+    if ! grep -q -E "IPV6=(yes|YES)" /etc/default/ufw; then
+        echo "ERROR: IPv6 rules requested but UFW is not configured to use IPv6. Set IPV6=yes in /etc/default/ufw and rerun this script."
+        exit 1
+    fi
+fi
 
 # Check if file already exists.
 if [ -f "$UFW_AFTER_INIT_FILE" ]; then
@@ -63,7 +81,11 @@ if [ -f "$UFW_AFTER_INIT_FILE" ]; then
 fi
 
 # Deploy after.init
-cp "ufw/after.init" "$UFW_AFTER_INIT_FILE" || exit
+if [[ "$CONFIGURE_IPV6" == 1 ]]; then
+    cp "ufw/after6.init" "$UFW_AFTER_INIT_FILE" || exit
+else
+    cp "ufw/after.init" "$UFW_AFTER_INIT_FILE" || exit
+fi
 chmod 755 "$UFW_AFTER_INIT_FILE"
 echo "Deployed $UFW_UFW_AFTER_INIT_FILE"
 
