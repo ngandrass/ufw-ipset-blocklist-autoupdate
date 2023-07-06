@@ -46,7 +46,8 @@ if [ ! -d "${IPSET_DIR}" ]; then
   return
 fi
 
-savefiles=$(find "$IPSET_DIR" -name "*-inet.save")
+savefiles=$(find "$IPSET_DIR" -name "*-inet\.save")
+savefiles6=$(find "$IPSET_DIR" -name "*-inet6\.save")
 case "$1" in
 start)
     for f in $savefiles; do
@@ -56,6 +57,13 @@ start)
         iptables -I INPUT -m set --match-set "$listname" src -j DROP
         iptables -I INPUT -m set --match-set "$listname" src -j LOG --log-prefix "[UFW BLOCK $listname] "
     done
+    for f in $savefiles6; do
+        listname=$(basename -s ".save" "$f")
+
+        $IPSET_BIN restore -! < "$f"
+        ip6tables -I INPUT -m set --match-set "$listname" src -j DROP
+        ip6tables -I INPUT -m set --match-set "$listname" src -j LOG --log-prefix "[UFW BLOCK $listname] "
+    done
     ;;
 stop)
     for f in $savefiles; do
@@ -63,6 +71,13 @@ stop)
 
         iptables -D INPUT -m set --match-set "$listname" src -j DROP || true
         iptables -D INPUT -m set --match-set "$listname" src -j LOG --log-prefix "[UFW BLOCK $listname] " || true
+        $IPSET_BIN destroy -q "$listname" || true
+    done
+    for f in $savefiles6; do
+        listname=$(basename -s ".save" "$f")
+
+        ip6tables -D INPUT -m set --match-set "$listname" src -j DROP || true
+        ip6tables -D INPUT -m set --match-set "$listname" src -j LOG --log-prefix "[UFW BLOCK $listname] " || true
         $IPSET_BIN destroy -q "$listname" || true
     done
     ;;
