@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/github/license/ngandrass/ufw-ipset-blocklist-autoupdate)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/blob/master/LICENSE)
 [![GitHub Issues](https://img.shields.io/github/issues/ngandrass/ufw-ipset-blocklist-autoupdate)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/ngandrass/ufw-ipset-blocklist-autoupdate)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/pulls)
+[![Donate with PayPal](https://img.shields.io/badge/PayPal-donate-orange)](https://www.paypal.me/ngandrass)
+[![Sponsor with GitHub](https://img.shields.io/badge/GitHub-sponsor-orange)](https://github.com/sponsors/ngandrass)
 [![GitHub Stars](https://img.shields.io/github/stars/ngandrass/ufw-ipset-blocklist-autoupdate?style=social)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/ngandrass/ufw-ipset-blocklist-autoupdate?style=social)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/network/members)
 [![GitHub Contributors](https://img.shields.io/github/contributors/ngandrass/ufw-ipset-blocklist-autoupdate?style=social)](https://github.com/ngandrass/ufw-ipset-blocklist-autoupdate/graphs/contributors)
