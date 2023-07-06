@@ -5,7 +5,7 @@
 #
 # Blocking lists of IPs from public blacklists / blocklists (e.g. blocklist.de, spamhaus.org)
 #
-# Version: 1.0.0
+# Version: 1.1.0
 #
 # See: https://github.com/ngandrass/ufw-ipset-blacklist-autoupdate
 #
