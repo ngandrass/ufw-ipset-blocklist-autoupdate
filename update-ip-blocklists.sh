@@ -35,7 +35,7 @@
 
 IPSET_BIN="/usr/bin/ipset"  # Path to ipset binary. Updated by detect_ipset().
 IPSET_DIR="/var/lib/ipset"  # Folder to write ipset save files to
-IPSET_PREFIX="blocklist"    # Prefix for ipset names
+IPSET_PREFIX="bl"           # Prefix for ipset names
 IPSET_TYPE="hash:net"       # Type of created ipsets
 IPV4=1                      # Enable IPv4 by default
 IPV6=1                      # Enable IPv6 by default
@@ -163,7 +163,7 @@ function update_ipset() {
 
     # Create temporary ipset to build and ensure existence of live ipset
     local livelist="$setname-$family"
-    local templist="$setname-$family-tmp"
+    local templist="$setname-$family-T"
 
     $IPSET_BIN create -q "$livelist" "$IPSET_TYPE" family $family
     $IPSET_BIN create -q "$templist" "$IPSET_TYPE" family $family
