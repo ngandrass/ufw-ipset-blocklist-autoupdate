@@ -78,6 +78,41 @@ by `ipset list`.
 - `setup-ufw.sh`: Helper script to deploy `ufw/after.init`.
 
 
+## Available blocklists
+
+This script can parse all blocklists that list IPv4 or IPv6 addresses with
+optional CIDR notation row per row in a plain text format (see
+[Supplying blocklist sources](#supplying-blocklist-sources)).
+
+The following blocklists are known to work. They can be enabled by passing the
+respective `-l` argument to the `update-ip-blocklists.sh` script.
+
+- [Binary Defense Systems Artillery Threat Intelligence Banlist](https://www.binarydefense.com):</br>
+  `-l "bdsatib https://www.binarydefense.com/banlist.txt"`
+- [Blocklist.de Fail2Ban Reporting (all)](https://www.blocklist.de/en/export.html):</br>
+  `-l "blocklist https://lists.blocklist.de/lists/all.txt"`
+- [BruteForceBlocker](https://danger.rulez.sk/index.php/bruteforceblocker/):</br>
+  `-l "bfblocker https://danger.rulez.sk/projects/bruteforceblocker/blist.php"`
+- [CINS Army List](http://www.ciarmy.com/#list):</br>
+  `-l "cnisarmy http://cinsscore.com/list/ci-badguys.txt"`
+- [FEODO Tracker: Botnet C2 (Recommended)](https://feodotracker.abuse.ch/blocklist/):</br>
+  `-l "feodoc2 https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt"`
+- [FEODO Tracker: Botnet C2 IoC (Recommended)](https://feodotracker.abuse.ch/blocklist/):</br>
+  `-l "feodoc2ioc https://feodotracker.abuse.ch/downloads/ipblocklist.txt"`
+- [FEODO Tracker: Botnet C2 IoC (Aggressive)](https://feodotracker.abuse.ch/blocklist/):</br>
+  `-l "feodoc2ioca https://feodotracker.abuse.ch/downloads/ipblocklist_aggressive.txt"`
+- [FireHOL IP List Level 1](https://iplists.firehol.org/):</br>
+  `-l "firehol1 https://iplists.firehol.org/files/firehol_level1.netset"`
+- [GreenSnow](https://greensnow.co/):</br>
+  `-l "greensnow https://blocklist.greensnow.co/greensnow.txt"`
+- [Spamhaus Don't Route Or Peer List (DROP)](https://www.spamhaus.org/drop/):</br>
+  `-l "spamhaus https://www.spamhaus.org/drop/drop.txt"`
+- [Spamhaus IPv6 DROP List (DROPv6)](https://www.spamhaus.org/drop/):</br>
+  `-l "spamhaus6 https://www.spamhaus.org/drop/dropv6.txt"`
+- [Spamhaus Extended DROP List (EDROP)](https://www.spamhaus.org/drop/):</br>
+  `-l "spamhausex https://www.spamhaus.org/drop/edrop.txt"`
+
+
 ## Acknowledgments
 
 This project is inspired by [this post on Xela's Linux Blog](https://spielwiese.la-evento.com/xelasblog/archives/74-Ipset-aus-der-Spamhaus-DROP-gemeinsam-mit-ufw-nutzen.html).
