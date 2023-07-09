@@ -170,8 +170,11 @@ function update_ipset() {
     log_verbose "Prepared ipset lists: livelist='$livelist', templist='$templist'"
 
     while read -r ip; do
-        $IPSET_BIN add "$templist" "$ip" || exit
-        log_verbose "Added '$ip' to '$templist'"
+        if $IPSET_BIN add "$templist" "$ip"; then
+            log_verbose "Added '$ip' to '$templist'"
+        else
+            log "Failed to add '$ip' to '$templist'"
+        fi
     done < "$ipfile"
 
     $IPSET_BIN swap "$templist" "$livelist"
