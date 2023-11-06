@@ -105,6 +105,8 @@ respective `-l` argument to the `update-ip-blocklists.sh` script.
   `-l "firehol1 https://iplists.firehol.org/files/firehol_level1.netset"`
 - [GreenSnow](https://greensnow.co/):</br>
   `-l "greensnow https://blocklist.greensnow.co/greensnow.txt"`
+- [IPsum](https://github.com/stamparm/ipsum):</br>
+  `-l "ipsum https://raw.githubusercontent.com/stamparm/ipsum/master/levels/3.txt"`</br>
 - [Spamhaus Don't Route Or Peer List (DROP)](https://www.spamhaus.org/drop/):</br>
   `-l "spamhaus https://www.spamhaus.org/drop/drop.txt"`
 - [Spamhaus IPv6 DROP List (DROPv6)](https://www.spamhaus.org/drop/):</br>
